@@ -22,36 +22,23 @@ spec:
           enum:
             - "Demo Job Template"
             - "debug-echo-azure-params"
-          enumNames:
-            - "Demo Job Template（Hello World）"
-            - "debug-echo-azure-params（Azure パラメータ出力）"
         extra_var_message:
           title: メッセージ（extra_vars）
           type: string
           default: "Hello from RHDH"
-          description: Job Template に渡す extra_vars
-
     - title: AAP 接続
       properties:
         aap_token:
           title: AAP アクセストークン
           type: string
           ui:field: AAPTokenField
-
   steps:
     - id: trigger-aap
       name: AAP Job Template を起動
       action: rhaap:launch-job-template
       input:
-        token: ${{ secrets.aap_token }}
+        token: \${{ secrets.aapToken }}
         values:
-          template: ${{ parameters.job_template_name }}
+          template: \${{ parameters.job_template_name }}
           extraVariables:
-            message: ${{ parameters.extra_var_message }}
-
-  output:
-    text:
-      - title: 実行結果
-        content: |
-          AAP Job Template `${{ parameters.job_template_name }}` を起動した。
-          AAP の管理画面で実行結果を確認すること。
+            message: \${{ parameters.extra_var_message }}
